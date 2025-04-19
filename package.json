@@ -12,6 +12,8 @@
     "clean": "lerna run clean"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
     "lerna": "^7.1.4",
     "typescript": "^5.0.2"
   },
