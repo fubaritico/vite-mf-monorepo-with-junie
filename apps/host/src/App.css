@@ -1,0 +1,85 @@
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+nav a {
+  padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  color: #333;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+  background-color: #e0e0e0;
+}
+
+main {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.error-boundary {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.error-boundary h2 {
+  color: #e53935;
+  margin-bottom: 1rem;
+}
+
+.error-boundary p {
+  margin-bottom: 1.5rem;
+  color: #666;
+}
+
+.error-boundary button {
+  padding: 0.5rem 1rem;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.error-boundary button:hover {
+  background-color: #c62828;
+}
