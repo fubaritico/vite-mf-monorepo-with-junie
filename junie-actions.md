@@ -104,3 +104,11 @@ To run the application:
    - Removed husky dependency from package.json
    - Decided to use manual commit message validation instead of git hooks
    - This simplifies the commit process while still maintaining the commit message convention documentation
+
+## Node.js Version Configuration
+
+1. Switched to Node.js LTS version:
+   - Previously using Node.js v14.21.2
+   - Now using the LTS version (v22.14.0 at the time of writing)
+   - Created an .nvmrc file with "lts/*" to ensure the LTS version is used by default
+   - This ensures compatibility with all dependencies and follows best practices for production applications
