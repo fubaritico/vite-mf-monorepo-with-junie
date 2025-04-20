@@ -168,3 +168,24 @@ These changes ensure that the remote packages are fully initialized and their re
    - Configured both development and production modes properly
 
 These changes align our project structure with modern micro-frontend best practices, ensuring better compatibility, easier maintenance, and more reliable remote component loading.
+
+## Server Management
+
+1. Created scripts to start the applications:
+   - run_list.sh: Starts the list package on port 5001
+   - run_detail.sh: Starts the detail package on port 5002
+   - run_host.sh: Starts the host application on port 5000
+   - run_all.sh: Starts all applications in the correct order with appropriate delays
+
+2. Created a script to stop all running servers:
+   - Created stop_all.sh in the scripts directory
+   - The script uses two approaches to ensure all servers are stopped:
+     - Uses `pkill -f "vite"` to kill all Vite development server processes
+     - Uses `lsof` and `kill` to terminate processes on ports 5000, 5001, and 5002
+   - Made the script executable with `chmod +x scripts/stop_all.sh`
+   - Successfully tested the script to stop all running servers
+
+3. Server management workflow:
+   - Start servers: `./scripts/run_all.sh`
+   - Stop servers: `./scripts/stop_all.sh`
+   - This ensures clean startup and shutdown of all micro-frontend components
