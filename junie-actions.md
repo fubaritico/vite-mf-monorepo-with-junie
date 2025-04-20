@@ -112,3 +112,59 @@ To run the application:
    - Now using the LTS version (v22.14.0 at the time of writing)
    - Created an .nvmrc file with "lts/*" to ensure the LTS version is used by default
    - This ensures compatibility with all dependencies and follows best practices for production applications
+
+2. Updated to Node.js v22 as specified:
+   - Explicitly switched to Node.js v22 using nvm
+   - Reinstalled all dependencies with pnpm
+   - Verified that all packages are compatible with Node.js v22
+   - This aligns with the project requirements and ensures optimal performance
+   - Successfully started all applications (list, detail, and host) with Node.js v22
+   - Confirmed that the applications can start without errors
+
+## Fix for Remote Component Loading Issue
+
+1. Identified issues with the application startup process:
+   - The run_list.sh script was using npm instead of pnpm, which could cause inconsistencies
+   - There was no proper script to start all applications in the correct order
+
+2. Created and updated scripts to properly start the applications:
+   - Updated run_list.sh to use pnpm instead of npm
+   - Created run_detail.sh to start the detail package
+   - Created run_host.sh to start the host application
+   - Created run_all.sh to start all applications in the correct order, ensuring that remote packages are started before the host
+
+3. Made all scripts executable for easier use
+
+4. Ensured proper startup sequence:
+   - Start the list package first (port 5001)
+   - Start the detail package second (port 5002)
+   - Start the host application last (port 5000)
+   - Added delays between startup to ensure each application is ready before the next one starts
+
+These changes ensure that the remote packages are fully initialized and their remote entry points are available before the host application tries to import them, which should resolve the issue with the federation plugin.
+
+## Project Structure Adaptation Based on vite-micro-frontend
+
+1. Analyzed the vite-micro-frontend project structure:
+   - Examined the directory structure and package configurations
+   - Studied the entry points and bootstrap process for both host and remote applications
+   - Reviewed the module federation configuration in development and production modes
+
+2. Updated the entry point structure for all applications:
+   - Created bootstrap.tsx files in both remote packages (list and detail)
+   - Modified main.tsx files to use top-level await to import bootstrap files
+   - Created index.ts in the host application to serve as the entry point
+   - Ensured all HTML files reference the correct entry points
+
+3. Updated package.json files to match the vite-micro-frontend structure:
+   - Updated dependencies to use the latest versions
+   - Added @module-federation/runtime and @module-federation/native-federation-typescript
+   - Updated build scripts to use the correct TypeScript configuration
+   - Added production mode scripts
+
+4. Enhanced the module federation configuration:
+   - Updated vite.config.ts files to use the latest module federation patterns
+   - Added proper proxy configurations for development mode
+   - Configured both development and production modes properly
+
+These changes align our project structure with modern micro-frontend best practices, ensuring better compatibility, easier maintenance, and more reliable remote component loading.
