@@ -7,9 +7,13 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "lerna run dev --parallel",
+    "dev": "lerna run --no-sort --stream dev",
     "build": "lerna run build",
-    "clean": "lerna run clean"
+    "prod": "lerna run --stream prod",
+    "clean": "lerna run --stream clean",
+    "list:dev": "pnpm --filter @junie-monorepo/list dev",
+    "detail:dev": "pnpm --filter @junie-monorepo/detail dev",
+    "host:dev": "pnpm --filter @junie-monorepo/host dev"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
@@ -18,7 +22,9 @@
     "typescript": "^5.0.2"
   },
   "engines": {
-    "node": ">=16.0.0",
+    "node": ">=22.0.0",
     "pnpm": ">=8.0.0"
-  }
+  },
+  "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677",
+  "type": "module"
 }
