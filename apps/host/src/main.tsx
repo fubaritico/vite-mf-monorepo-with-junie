@@ -1,10 +1,62 @@
-import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css';
-import App from './App';
-import Loading from './components/Loading';
-import ErrorBoundary from './components/ErrorBoundary';
+import { init } from '@module-federation/runtime'
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import './index.css'
+import App from './App'
+import ErrorBoundary from './components/ErrorBoundary'
+
+// Initialize module federation runtime
+init({
+  name: 'host',
+  remotes: [
+    {
+      name: 'list',
+      alias: 'list',
+      entry: 'http://localhost:5001/remoteEntry.js',
+    },
+    {
+      name: 'detail',
+      alias: 'detail',
+      entry: 'http://localhost:5002/remoteEntry.js',
+    },
+  ],
+  shared: {
+    react: [
+      {
+        version: '19.0.0',
+        scope: 'default',
+        lib: () => ({ version: '19.0.0' }),
+        shareConfig: {
+          singleton: true,
+          requiredVersion: '^19.0.0',
+        },
+      },
+    ],
+    'react-dom': [
+      {
+        version: '19.0.0',
+        scope: 'default',
+        lib: () => ({ version: '19.0.0' }),
+        shareConfig: {
+          singleton: true,
+          requiredVersion: '^19.0.0',
+        },
+      },
+    ],
+    'react-router-dom': [
+      {
+        version: '7.0.0',
+        scope: 'default',
+        lib: () => ({ version: '7.0.0' }),
+        shareConfig: {
+          singleton: true,
+          requiredVersion: '^7.0.0',
+        },
+      },
+    ],
+  },
+})
 
 // Define the routes with lazy loading
 const router = createBrowserRouter([
@@ -16,21 +68,31 @@ const router = createBrowserRouter([
         index: true,
         async lazy() {
           // Lazy load the List component from the 'list' remote
-          const { default: List } = await import('list/List');
-          return { Component: List };
+          const { default: List } = await import('list/List')
+          return { Component: List }
         },
       },
-      // We'll just implement the home route with the list for now
+      {
+        path: 'detail/:id',
+        async lazy() {
+          // Lazy load the Detail component from the 'detail' remote
+          const { default: Detail } = await import('detail/Detail')
+          return { Component: Detail }
+        },
+      },
     ],
   },
-]);
+])
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
+const root = document.getElementById('root')
+if (!root) {
+  throw new Error('root not found')
+}
+
+createRoot(root).render(
+  <StrictMode>
     <ErrorBoundary>
-      <Suspense fallback={<Loading />}>
-        <RouterProvider router={router} />
-      </Suspense>
+      <RouterProvider router={router} />
     </ErrorBoundary>
-  </React.StrictMode>,
-);
+  </StrictMode>
+)
