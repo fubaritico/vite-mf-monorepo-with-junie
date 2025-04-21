@@ -1,5 +1,5 @@
 {
-  "name": "junie-monorepo",
+  "name": "vite-mf-monorepo-with-junie",
   "version": "1.0.0",
   "private": true,
   "workspaces": [
@@ -16,8 +16,7 @@
     "host:dev": "pnpm --filter @junie-monorepo/host dev",
     "type-check": "tsc -p ./ --noEmit",
     "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
-    "lint:fix": "eslint --ext .ts,.tsx,.js,.jsx . --fix",
-    "prepare": "husky"
+    "lint:fix": "eslint --ext .ts,.tsx,.js,.jsx . --fix"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
