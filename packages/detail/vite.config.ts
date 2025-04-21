@@ -5,6 +5,9 @@ import { federation } from '@module-federation/vite'
 import { NativeFederationTypeScriptRemote } from '@module-federation/native-federation-typescript/vite'
 import type { ModuleFederationOptions } from '@module-federation/vite/lib/utils/normalizeModuleFederationOptions'
 import type { UserConfig, CommonServerOptions } from 'vite'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const remoteConfig: ModuleFederationOptions = {
   name: 'detail',
@@ -19,17 +22,17 @@ const remoteConfig: ModuleFederationOptions = {
 const proxyOptions: CommonServerOptions = {
   proxy: {
     '/@mf-types.zip': {
-      target: 'http://localhost:5002',
+      target: `http://localhost:${process.env.REMOTE_DETAIL_PORT}`,
       changeOrigin: true,
       rewrite: () => `/@fs/${process.cwd()}/dist/@mf-types.zip`,
     },
     '/remoteEntry.js': {
-      target: 'http://localhost:5002',
+      target: `http://localhost:${process.env.REMOTE_DETAIL_PORT}`,
       changeOrigin: true,
       rewrite: () => `/@fs/${process.cwd()}/dist/remoteEntry.js`,
     },
     '/mf-manifest.json': {
-      target: 'http://localhost:5002',
+      target: `http://localhost:${process.env.REMOTE_DETAIL_PORT}`,
       changeOrigin: true,
       rewrite: () => `/@fs/${process.cwd()}/dist/mf-manifest.json`,
     },
@@ -64,7 +67,7 @@ const config: UserConfig = {
     },
   },
   server: {
-    port: 5002,
+    port: parseInt(process.env.REMOTE_DETAIL_PORT),
     strictPort: true,
     ...proxyOptions,
     fs: {

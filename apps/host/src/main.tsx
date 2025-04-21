@@ -13,12 +13,12 @@ init({
     {
       name: 'list',
       alias: 'list',
-      entry: 'http://localhost:5001/remoteEntry.js',
+      entry: `http://localhost:${import.meta.env.VITE_REMOTE_LIST_PORT}/remoteEntry.js`
     },
     {
       name: 'detail',
       alias: 'detail',
-      entry: 'http://localhost:5002/remoteEntry.js',
+      entry: `http://localhost:${import.meta.env.VITE_REMOTE_DETAIL_PORT}/remoteEntry.js`
     },
   ],
   shared: {

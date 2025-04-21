@@ -1,1 +1,1 @@
-await import('./bootstrap')
+import('./bootstrap')
