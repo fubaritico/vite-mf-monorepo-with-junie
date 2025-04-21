@@ -1,1 +1,3 @@
 await import('./bootstrap')
+
+export {}

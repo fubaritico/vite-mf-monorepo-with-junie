@@ -1,7 +1,8 @@
 import { init } from '@module-federation/runtime'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+
 import './index.css'
 import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
@@ -13,12 +14,12 @@ init({
     {
       name: 'list',
       alias: 'list',
-      entry: `http://localhost:${import.meta.env.VITE_REMOTE_LIST_PORT}/remoteEntry.js`
+      entry: `http://localhost:${import.meta.env.VITE_REMOTE_LIST_PORT as string}/remoteEntry.js`,
     },
     {
       name: 'detail',
       alias: 'detail',
-      entry: `http://localhost:${import.meta.env.VITE_REMOTE_DETAIL_PORT}/remoteEntry.js`
+      entry: `http://localhost:${import.meta.env.VITE_REMOTE_DETAIL_PORT as string}/remoteEntry.js`,
     },
   ],
   shared: {

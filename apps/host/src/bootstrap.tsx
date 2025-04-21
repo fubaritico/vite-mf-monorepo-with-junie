@@ -1,1 +1,3 @@
-import('./main');
+await import('./main')
+
+export {}

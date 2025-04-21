@@ -24,10 +24,18 @@ export default tseslint.config(
   // Files to be ignored
   {
     ignores: [
-      './packages/*/dist',
-      'eslint.config.js',
       './packages/*/eslint.config.js',
+      './packages/*/server.js',
       './packages/*/vite.config.ts',
+      './packages/*/dist',
+      './packages/*/.__mf__temp',
+      './apps/*/eslint.config.js',
+      './apps/*/server.js',
+      './apps/*/vite.config.ts',
+      './apps/*/dist',
+      './apps/*/@mf-types',
+      './apps/*/.__mf__temp',
+      'eslint.config.js',
       'pnpm-lock.yaml',
       'pnpm-workspace.yaml',
       'commitlint.config.js',
@@ -48,7 +56,7 @@ export default tseslint.config(
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
-        project: ['./packages/*/tsconfig.app.json'],
+        project: ['./packages/*/tsconfig.json', './apps/*/tsconfig.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },
@@ -102,31 +110,14 @@ export default tseslint.config(
           'newlines-between': 'always',
           pathGroups: [
             {
-              pattern: 'todo_components/**',
+              pattern: 'list/**',
               group: 'external',
               position: 'before',
             },
             {
-              pattern: '@Utils/**',
-              group: 'internal',
+              pattern: 'detail/**',
+              group: 'external',
               position: 'before',
-            },
-            {
-              pattern: '@Atoms/**',
-              group: 'internal',
-            },
-            {
-              pattern: '@Molecules/**',
-              group: 'internal',
-            },
-            {
-              pattern: '@Components/**',
-              group: 'internal',
-            },
-            {
-              pattern: '@Svg/**',
-              group: 'sibling',
-              position: 'after',
             },
           ],
           alphabetize: {

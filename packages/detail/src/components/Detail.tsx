@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+
 import { fetchMovieDetail, getImageUrl } from '../services/api'
 import { Movie } from '../types/movie'
 import './Detail.css'
@@ -27,7 +28,8 @@ const Detail = () => {
         setLoading(false)
       }
     }
-
+    // TODO use react-query
+    // eslint-disable-next-line
     getMovieDetail()
   }, [id])
 
@@ -70,9 +72,9 @@ const Detail = () => {
           <h3>Overview</h3>
           <p>{movie.overview}</p>
         </div>
-        {(movie.budget || movie.revenue) && (
+        {(movie.budget ?? movie.revenue) && (
           <div className="movie-stats">
-            {movie.budget > 0 && (
+            {movie.budget && movie.budget > 0 && (
               <div className="stat">
                 <span className="stat-label">Budget:</span>
                 <span className="stat-value">
@@ -80,7 +82,7 @@ const Detail = () => {
                 </span>
               </div>
             )}
-            {movie.revenue > 0 && (
+            {movie.revenue && movie.revenue > 0 && (
               <div className="stat">
                 <span className="stat-label">Revenue:</span>
                 <span className="stat-value">

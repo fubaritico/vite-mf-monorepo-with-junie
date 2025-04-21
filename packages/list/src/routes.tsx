@@ -1,6 +1,7 @@
-import { RouteObject } from 'react-router-dom';
-import App from './App';
-import List from './components/List';
+import { RouteObject } from 'react-router-dom'
+
+import App from './App'
+import List from './components/List'
 
 export const routes: RouteObject[] = [
   {
@@ -13,4 +14,4 @@ export const routes: RouteObject[] = [
       },
     ],
   },
-];
+]

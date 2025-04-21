@@ -13,7 +13,11 @@
     "clean": "lerna run --stream clean",
     "list:dev": "pnpm --filter @junie-monorepo/list dev",
     "detail:dev": "pnpm --filter @junie-monorepo/detail dev",
-    "host:dev": "pnpm --filter @junie-monorepo/host dev"
+    "host:dev": "pnpm --filter @junie-monorepo/host dev",
+    "type-check": "tsc -p ./ --noEmit",
+    "lint": "eslint --ext .ts,.tsx,.js,.jsx .",
+    "lint:fix": "eslint --ext .ts,.tsx,.js,.jsx . --fix",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

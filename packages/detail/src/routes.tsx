@@ -1,6 +1,7 @@
-import { RouteObject } from 'react-router-dom';
-import App from './App';
-import Detail from './components/Detail';
+import { RouteObject } from 'react-router-dom'
+
+import App from './App'
+import Detail from './components/Detail'
 
 export const routes: RouteObject[] = [
   {
@@ -13,4 +14,4 @@ export const routes: RouteObject[] = [
       },
     ],
   },
-];
+]
