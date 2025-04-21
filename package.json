@@ -18,11 +18,26 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
-    "lerna": "^7.1.4",
-    "typescript": "^5.0.2"
+    "@eslint/js": "^9.21.0",
+    "eslint": "^9.21.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-config-react": "^1.1.7",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.2.6",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^15.15.0",
+    "husky": "^9.1.7",
+    "lerna": "^8.2.2",
+    "lint-staged": "^15.5.1",
+    "prettier": "3.5.3",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.24.1"
   },
   "engines": {
-    "node": ">=22.0.0",
+    "node": ">=22.11.0",
     "pnpm": ">=8.0.0"
   },
   "packageManager": "pnpm@10.8.1+sha512.c50088ba998c67b8ca8c99df8a5e02fd2ae2e2b29aaf238feaa9e124248d3f48f9fb6db2424949ff901cffbb5e0f0cc1ad6aedb602cd29450751d11c35023677",
