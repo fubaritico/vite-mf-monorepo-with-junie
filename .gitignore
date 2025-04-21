@@ -1,6 +1,15 @@
+# Dependencies
 node_modules/
 
 # IDE
 .vscode/*
 !.vscode/extensions.json
 .idea
+.idea/*
+
+# Where secrets are stored
+.env.local
+/.env.local
+
+# Temp commit message
+commit_message.txt

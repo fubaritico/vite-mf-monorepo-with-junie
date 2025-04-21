@@ -5,6 +5,11 @@ if [ -f .env ]; then
   export $(grep -v '^#' .env | xargs)
 fi
 
+# Load local environment variables from .env file
+if [ -f .env.local ]; then
+  export $(grep -v '^#' .env.local | xargs)
+fi
+
 # Start the list and detail packages first
 echo "Starting list package..."
 cd packages/list && pnpm run dev &
