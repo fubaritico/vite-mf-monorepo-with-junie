@@ -2,15 +2,9 @@
   "name": "vite-mf-monorepo-with-junie",
   "version": "1.0.0",
   "private": true,
-  "workspaces": [
-    "packages/*",
-    "apps/*"
-  ],
   "scripts": {
     "dev": "lerna run --no-sort --stream dev",
-    "build": "lerna run build",
     "prod": "lerna run --stream prod",
-    "clean": "lerna run --stream clean",
     "list:dev": "pnpm --filter @junie-monorepo/list dev",
     "detail:dev": "pnpm --filter @junie-monorepo/detail dev",
     "host:dev": "pnpm --filter @junie-monorepo/host dev",
