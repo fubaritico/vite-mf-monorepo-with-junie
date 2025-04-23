@@ -189,3 +189,30 @@ These changes align our project structure with modern micro-frontend best practi
    - Start servers: `./scripts/run_all.sh`
    - Stop servers: `./scripts/stop_all.sh`
    - This ensures clean startup and shutdown of all micro-frontend components
+
+## Health Check Implementation
+
+1. Created shared utilities for health checking:
+   - Added healthCheck.ts utility for checking remote application health
+   - Implemented retry.ts utility with exponential backoff
+   - Both utilities are placed in the shared package for reuse
+
+2. Health check features:
+   - Configurable retry attempts and delays
+   - Timeout handling for requests
+   - Proper error handling and logging
+   - Cache control headers to prevent stale responses
+
+3. Updated host application bootstrap:
+   - Added health checks for both list and detail remotes
+   - Implemented graceful fallback UI for health check failures
+   - Added retry button for user-initiated recovery
+   - Improved error handling and user feedback
+
+4. Health check configuration:
+   - Default retry attempts: 5
+   - Default retry delay: 1000ms
+   - Default timeout: 5000ms
+   - All values are configurable through options
+
+These changes ensure that the host application only attempts to load remote modules when they are confirmed to be healthy and available, preventing race conditions and improving the user experience.

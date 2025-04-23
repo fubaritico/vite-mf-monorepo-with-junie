@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "lerna run --no-sort --stream dev",
+    "dev": "lerna run --stream --parallel dev",
+    "dev:ordered": "lerna run --stream dev --scope @junie-monorepo/{list,detail} && lerna run --stream dev --scope @junie-monorepo/host",
     "prod": "lerna run --stream prod",
     "list:dev": "pnpm --filter @junie-monorepo/list dev",
     "detail:dev": "pnpm --filter @junie-monorepo/detail dev",

@@ -1,15 +1,17 @@
 {
-  "version": "1.0.0",
+  "version": "independent",
   "npmClient": "pnpm",
-  "packages": ["packages/*", "apps/*"],
+  "useWorkspaces": true,
+  "packages": [
+    "packages/*",
+    "apps/*"
+  ],
   "command": {
-    "version": {
-      "exact": true
+    "run": {
+      "stream": true
     },
-    "publish": {
-      "npmClient": "pnpm",
-      "allowBranch": ["main"],
-      "registry": "https://registry.npmjs.org/"
+    "bootstrap": {
+      "npmClientArgs": ["--no-package-lock"]
     }
   }
 }
