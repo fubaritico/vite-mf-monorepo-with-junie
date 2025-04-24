@@ -37,25 +37,47 @@ const moduleFederationConfig2 = {
       sharedScope: 'default',
     },
   },
-  shared: ['react', 'react-dom', 'react-router-dom'],
+  shared: {
+    react: {
+      singleton: true,
+      requiredVersion: '^19.0.0',
+    },
+    'react-dom': {
+      singleton: true,
+      requiredVersion: '^19.0.0',
+    },
+    'react-router-dom': {
+      singleton: true,
+      requiredVersion: '^7.0.0',
+    },
+  },
 }
 
-export default defineConfig(({ mode }) => ({
-  plugins: [
+export default defineConfig(({ mode }) => {
+  console.warn('HOST_PORT', process.env.HOST_PORT, [
     ...(mode !== 'production'
       ? [NativeFederationTypeScriptHost({ moduleFederationConfig })]
       : []),
     federation(moduleFederationConfig2),
     react(),
-  ],
-  build: {
-    target: 'esnext',
-    modulePreload: false,
-    minify: false,
-    cssCodeSplit: false,
-  },
-  server: {
-    port: parseInt(process.env.HOST_PORT),
-    strictPort: true,
-  },
-}))
+  ])
+  return {
+    plugins: [
+      ...(mode !== 'production'
+        ? [NativeFederationTypeScriptHost({ moduleFederationConfig })]
+        : []),
+      federation(moduleFederationConfig2),
+      react(),
+    ],
+    build: {
+      target: 'esnext',
+      modulePreload: false,
+      minify: false,
+      cssCodeSplit: false,
+    },
+    server: {
+      port: parseInt(process.env.HOST_PORT),
+      strictPort: true,
+    },
+  }
+})

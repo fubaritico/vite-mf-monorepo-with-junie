@@ -16,6 +16,11 @@ const __dirname = path.dirname(__filename)
 // Enable CORS for all routes
 app.use(cors())
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'healthy' })
+})
+
 // Serve static files from the "dist" folder (including remoteEntry.js)
 app.use(express.static(path.join(__dirname, 'dist')))
 

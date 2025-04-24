@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "lerna run --stream --parallel dev",
-    "dev:ordered": "lerna run --stream dev --scope @junie-monorepo/{list,detail} && lerna run --stream dev --scope @junie-monorepo/host",
+    "dev:ordered": "lerna run --stream dev --scope @junie-monorepo/list --scope @junie-monorepo/detail --scope @junie-monorepo/host",
     "prod": "lerna run --stream prod",
+    "prod:ordered": "lerna run --stream prod --scope @junie-monorepo/list --scope @junie-monorepo/detail --scope @junie-monorepo/host",
     "list:dev": "pnpm --filter @junie-monorepo/list dev",
     "detail:dev": "pnpm --filter @junie-monorepo/detail dev",
     "host:dev": "pnpm --filter @junie-monorepo/host dev",

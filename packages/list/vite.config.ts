@@ -3,13 +3,14 @@ import react from '@vitejs/plugin-react'
 import topLevelAwait from 'vite-plugin-top-level-await'
 import { federation } from '@module-federation/vite'
 import { NativeFederationTypeScriptRemote } from '@module-federation/native-federation-typescript/vite'
-import type { ModuleFederationOptions } from '@module-federation/vite/lib/utils/normalizeModuleFederationOptions'
-import type { UserConfig, CommonServerOptions } from 'vite'
 import dotenv from 'dotenv'
 
 dotenv.config()
 
-console.log(process.env.REMOTE_LIST_PORT)
+import type { ModuleFederationOptions } from '@module-federation/vite/lib/utils/normalizeModuleFederationOptions'
+import type { CommonServerOptions } from 'vite'
+
+console.warn('REMOTE_LIST_PORT', process.env.REMOTE_LIST_PORT)
 
 const remoteConfig: ModuleFederationOptions = {
   name: 'list',
@@ -18,7 +19,20 @@ const remoteConfig: ModuleFederationOptions = {
     './List': './src/components/List',
     './routes': './src/routes',
   },
-  shared: ['react', 'react-dom', 'react-router-dom'],
+  shared: {
+    react: {
+      singleton: true,
+      requiredVersion: '^19.0.0',
+    },
+    'react-dom': {
+      singleton: true,
+      requiredVersion: '^19.0.0',
+    },
+    'react-router-dom': {
+      singleton: true,
+      requiredVersion: '^7.0.0',
+    },
+  },
 }
 
 const proxyOptions: CommonServerOptions = {
@@ -41,15 +55,19 @@ const proxyOptions: CommonServerOptions = {
   },
 }
 
-const config: UserConfig = {
+export default defineConfig(({ mode }) => ({
   plugins: [
-    NativeFederationTypeScriptRemote({
-      tsConfigPath: './tsconfig.json',
-      moduleFederationConfig: remoteConfig,
-      deleteTypesFolder: true,
-      typesFolder: '@mf-types',
-      compilerInstance: 'tsc',
-    }),
+    ...(mode !== 'production'
+      ? [
+          NativeFederationTypeScriptRemote({
+            tsConfigPath: './tsconfig.json',
+            moduleFederationConfig: remoteConfig,
+            deleteTypesFolder: true,
+            typesFolder: '@mf-types',
+            compilerInstance: 'tsc',
+          }),
+        ]
+      : []),
     federation({
       ...remoteConfig,
     }),
@@ -76,6 +94,4 @@ const config: UserConfig = {
       allow: ['./dist/mf-manifest.json', 'dist', 'src'],
     },
   },
-}
-
-export default defineConfig(config)
+}))

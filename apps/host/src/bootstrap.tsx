@@ -1,8 +1,8 @@
 import { checkRemoteHealth } from '@junie-monorepo/shared'
 import { createRoot } from 'react-dom/client'
 
-const LIST_REMOTE_URL = 'http://localhost:5001'
-const DETAIL_REMOTE_URL = 'http://localhost:5002'
+const LIST_REMOTE_URL = `http://localhost:${import.meta.env.VITE_REMOTE_LIST_PORT as string}/health`
+const DETAIL_REMOTE_URL = `http://localhost:${import.meta.env.VITE_REMOTE_DETAIL_PORT as string}/health`
 
 async function bootstrap() {
   try {
@@ -17,15 +17,7 @@ async function bootstrap() {
     }
 
     // Import the main application
-    const { default: App } = await import('./main')
-
-    // Render the application
-    const rootElement = document.getElementById('root')
-    if (!rootElement) {
-      throw new Error('Root element not found')
-    }
-    const root = createRoot(rootElement)
-    root.render(<App />)
+    await import('./main')
   } catch (error) {
     console.error('Failed to bootstrap application:', error)
     // Render a fallback UI
