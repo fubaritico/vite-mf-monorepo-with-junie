@@ -54,13 +54,6 @@ const moduleFederationConfig2 = {
 }
 
 export default defineConfig(({ mode }) => {
-  console.warn('HOST_PORT', process.env.HOST_PORT, [
-    ...(mode !== 'production'
-      ? [NativeFederationTypeScriptHost({ moduleFederationConfig })]
-      : []),
-    federation(moduleFederationConfig2),
-    react(),
-  ])
   return {
     plugins: [
       ...(mode !== 'production'
@@ -71,9 +64,6 @@ export default defineConfig(({ mode }) => {
     ],
     build: {
       target: 'esnext',
-      modulePreload: false,
-      minify: false,
-      cssCodeSplit: false,
     },
     server: {
       port: parseInt(process.env.HOST_PORT),

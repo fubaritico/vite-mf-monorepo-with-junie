@@ -27,7 +27,6 @@ init({
       {
         version: '19.0.0',
         scope: 'default',
-        lib: () => ({ version: '19.0.0' }),
         shareConfig: {
           singleton: true,
           requiredVersion: '^19.0.0',
@@ -38,7 +37,6 @@ init({
       {
         version: '19.0.0',
         scope: 'default',
-        lib: () => ({ version: '19.0.0' }),
         shareConfig: {
           singleton: true,
           requiredVersion: '^19.0.0',
@@ -49,7 +47,6 @@ init({
       {
         version: '7.0.0',
         scope: 'default',
-        lib: () => ({ version: '7.0.0' }),
         shareConfig: {
           singleton: true,
           requiredVersion: '^7.0.0',

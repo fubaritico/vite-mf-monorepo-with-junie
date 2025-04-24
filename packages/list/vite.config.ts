@@ -4,6 +4,7 @@ import topLevelAwait from 'vite-plugin-top-level-await'
 import { federation } from '@module-federation/vite'
 import { NativeFederationTypeScriptRemote } from '@module-federation/native-federation-typescript/vite'
 import dotenv from 'dotenv'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 dotenv.config()
 
@@ -22,15 +23,15 @@ const remoteConfig: ModuleFederationOptions = {
   shared: {
     react: {
       singleton: true,
-      requiredVersion: '^19.0.0',
+      requiredVersion: '19.0.0',
     },
     'react-dom': {
       singleton: true,
-      requiredVersion: '^19.0.0',
+      requiredVersion: '19.0.0',
     },
     'react-router-dom': {
       singleton: true,
-      requiredVersion: '^7.0.0',
+      requiredVersion: '7.0.0',
     },
   },
 }
@@ -72,6 +73,10 @@ export default defineConfig(({ mode }) => ({
       ...remoteConfig,
     }),
     react(),
+    // Allow CSS to be injected in host app
+    cssInjectedByJsPlugin({
+      relativeCSSInjection: true,
+    }),
     topLevelAwait(),
   ],
   build: {

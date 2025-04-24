@@ -4,6 +4,7 @@ import topLevelAwait from 'vite-plugin-top-level-await'
 import { federation } from '@module-federation/vite'
 import dotenv from 'dotenv'
 import { NativeFederationTypeScriptRemote } from '@module-federation/native-federation-typescript/vite'
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 
 import type { ModuleFederationOptions } from '@module-federation/vite/lib/utils/normalizeModuleFederationOptions'
 import type { CommonServerOptions } from 'vite'
@@ -70,6 +71,10 @@ export default defineConfig(({ mode }) => ({
       ...remoteConfig,
     }),
     react(),
+    // Allow CSS to be injected in host app
+    cssInjectedByJsPlugin({
+      relativeCSSInjection: true,
+    }),
     topLevelAwait(),
   ],
   build: {

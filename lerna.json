@@ -1,16 +1,5 @@
 {
-  "version": "independent",
-  "npmClient": "pnpm",
-  "packages": [
-    "packages/*",
-    "apps/*"
-  ],
-  "command": {
-    "run": {
-      "stream": true
-    },
-    "bootstrap": {
-      "npmClientArgs": ["--no-package-lock"]
-    }
-  }
+  "$schema": "node_modules/lerna/schemas/lerna-schema.json",
+  "version": "0.0.0",
+  "npmClient": "pnpm"
 }

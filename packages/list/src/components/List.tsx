@@ -37,20 +37,20 @@ const List = () => {
   }
 
   return (
-    <div className="movie-list">
+    <div className="movie-grid-list">
       {movies.map((movie) => (
         <Link
           to={`/detail/${movie.id.toString()}`}
           key={movie.id}
-          className="movie-card"
+          className="movie-grid-card"
         >
-          <div className="movie-poster">
+          <div className="movie-grid-poster">
             <img
               src={getImageUrl(movie.poster_path)}
               alt={`${movie.title} poster`}
             />
           </div>
-          <div className="movie-title">{movie.title}</div>
+          <div className="movie-grid-title">{movie.title}</div>
         </Link>
       ))}
     </div>
