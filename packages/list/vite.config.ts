@@ -11,8 +11,6 @@ dotenv.config()
 import type { ModuleFederationOptions } from '@module-federation/vite/lib/utils/normalizeModuleFederationOptions'
 import type { CommonServerOptions } from 'vite'
 
-console.warn('REMOTE_LIST_PORT', process.env.REMOTE_LIST_PORT)
-
 const remoteConfig: ModuleFederationOptions = {
   name: 'list',
   filename: 'remoteEntry.js',

@@ -1,11 +1,11 @@
 ## Monorepo Micro Front End \w React, Vite, Lerna & Pnpm
 
-This project is a grid of movies that uses micro frontends architecture. A detail page is accessd by clicing on a movie card. It is built using React, Vite, Lerna, and Pnpm. The project is structured as a monorepo, which allows for easy management of multiple packages and applications.
+This project is a grid of movies that uses micro frontends architecture. A detail page is accessed by clicking on a movie card. It is built using React, Vite, Lerna, and Pnpm. The project is structured as a monorepo, which allows for easy management of multiple packages and applications.
 The micro frontends are loaded dynamically in the host application, allowing for a modular and scalable architecture. The project is designed to be easy to understand and extend, making it a great starting point for anyone looking to learn about micro frontends.
 
 The main boilerplate code of the project has been generated using JetBrains Junie genAI, which is a great tool for generating boilerplate code quickly and efficiently. The project is designed to be easy to understand and extend, making it a great starting point for anyone looking to learn about micro frontends.
 
-This is a test to check if it was possible to generate a project from a previous one used as an inspiration to prduce good model context, using the same tech stack.
+This is a test to check if it was possible to generate a project from a previous one used as an inspiration to produce good model context, using the same tech stack.
 
 All techs and deps used in this project are the latest versions available at the time of writing this README. Some update maintenance for dependencies will be done in time.
 
