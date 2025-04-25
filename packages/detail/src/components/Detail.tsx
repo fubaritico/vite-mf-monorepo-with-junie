@@ -17,7 +17,7 @@ type ThisComponent = FC & {
 }
 
 const query = (id?: string) => ({
-  queryKey: ['movieDetail'],
+  queryKey: ['movieDetail', id],
   queryFn: async () => fetchMovieDetail(id),
 })
 
