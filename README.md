@@ -69,3 +69,7 @@ The project consists of two remotes and one host application:
 - Easy to add new micro frontends
 - Each remote is standalone and can be deployed independently
 - For production mode (locally), each part of the application is hosted in a expressJS server
+
+### Issues
+
+For now, the project has to be refreshed in dev mode to load the remotes. Production and stand alone is working fine.
