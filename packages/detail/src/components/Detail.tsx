@@ -1,48 +1,43 @@
-import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { QueryClient, useQuery } from '@tanstack/react-query'
+import { useLoaderData, useParams } from 'react-router-dom'
 
 import { fetchMovieDetail, getImageUrl } from '../services/api'
-import { Movie } from '../types/movie'
+
+import type { FC } from 'react'
+import type { Params } from 'react-router-dom'
+
+// Static CSS imports to be shared to host
 import './Detail.css'
 import '../index.css'
 
-const Detail = () => {
-  const { id } = useParams<{ id: string }>()
-  const [movie, setMovie] = useState<Movie | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+type ThisComponent = FC & {
+  loader: (
+    queryClient: QueryClient
+  ) => ({ params }: { params: Params<'id'> }) => Promise<Movie>
+}
 
-  useEffect(() => {
-    const getMovieDetail = async () => {
-      if (!id) return
+const query = (id?: string) => ({
+  queryKey: ['movieDetail'],
+  queryFn: async () => fetchMovieDetail(id),
+})
 
-      try {
-        setLoading(true)
-        const data = await fetchMovieDetail(id)
-        setMovie(data)
-        setError(null)
-      } catch (err) {
-        setError('Failed to fetch movie details. Please try again later.')
-        console.error(err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    // TODO use react-query
-    // eslint-disable-next-line
-    getMovieDetail()
-  }, [id])
-
-  if (loading) {
-    return <div className="loading">Loading movie details...</div>
+const loader =
+  (queryClient: QueryClient) =>
+  ({ params }: { params: Params<'id'> }) => {
+    return queryClient.ensureQueryData(query(params.id))
   }
+
+const Detail: ThisComponent = () => {
+  const initialData = useLoaderData<Movie>()
+  const { id } = useParams<{ id: string }>()
+
+  const { data: movie, error } = useQuery<Movie>({
+    ...query(id),
+    initialData,
+  })
 
   if (error) {
-    return <div className="error">{error}</div>
-  }
-
-  if (!movie) {
-    return <div className="error">Movie not found</div>
+    return <div className="error">{error.message}</div>
   }
 
   return (
@@ -98,3 +93,5 @@ const Detail = () => {
 }
 
 export default Detail
+
+Detail.loader = loader

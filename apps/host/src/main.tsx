@@ -1,11 +1,13 @@
 import { init } from '@module-federation/runtime'
+import { QueryClientProvider } from '@tanstack/react-query'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider } from 'react-router-dom'
 
 import './index.css'
-import App from './App'
+
 import ErrorBoundary from './components/ErrorBoundary'
+import { queryClient, router } from './router'
 
 // Initialize module federation runtime
 init({
@@ -53,34 +55,18 @@ init({
         },
       },
     ],
-  },
-})
-
-// Define the routes with lazy loading
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    children: [
+    '@tanstack/react-query': [
       {
-        index: true,
-        async lazy() {
-          // Lazy load the List component from the 'list' remote
-          const { default: List } = await import('list/List')
-          return { Component: List }
-        },
-      },
-      {
-        path: 'detail/:id',
-        async lazy() {
-          // Lazy load the Detail component from the 'detail' remote
-          const { default: Detail } = await import('detail/Detail')
-          return { Component: Detail }
+        version: '5.74.4',
+        scope: 'default',
+        shareConfig: {
+          singleton: true,
+          requiredVersion: '^5.74.4',
         },
       },
     ],
   },
-])
+})
 
 const root = document.getElementById('root')
 if (!root) {
@@ -89,8 +75,10 @@ if (!root) {
 
 createRoot(root).render(
   <StrictMode>
-    <ErrorBoundary>
-      <RouterProvider router={router} />
-    </ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
+    </QueryClientProvider>
   </StrictMode>
 )

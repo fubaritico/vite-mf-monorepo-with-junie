@@ -11,6 +11,8 @@ import type { CommonServerOptions } from 'vite'
 
 dotenv.config()
 
+console.log(process.env.REMOTE_DETAIL_PORT)
+
 const remoteConfig: ModuleFederationOptions = {
   name: 'detail',
   filename: 'remoteEntry.js',
@@ -30,6 +32,10 @@ const remoteConfig: ModuleFederationOptions = {
     'react-router-dom': {
       singleton: true,
       requiredVersion: '^7.0.0',
+    },
+    '@tanstack/react-query': {
+      singleton: true,
+      requiredVersion: '^5.74.4',
     },
   },
 }

@@ -1,5 +1,3 @@
-import { MovieListResponse } from '../types/movie'
-
 const API_KEY = import.meta.env.VITE_API_KEY as string
 const BASE_URL = 'https://api.themoviedb.org/3'
 
@@ -15,7 +13,6 @@ export const fetchPopularMovies = async (
       throw new Error('Failed to fetch popular movies')
     }
 
-    // TODO: use react-query
     // eslint-disable-next-line
     return await response.json()
   } catch (error) {

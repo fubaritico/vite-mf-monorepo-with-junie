@@ -32,3 +32,6 @@ out
 gen
 
 .__mf__temp
+
+#Standalone env vars
+.env.local

@@ -1,21 +1,18 @@
-declare module 'list/List' {
-  import { FC } from 'react'
-  const List: FC
-  export default List
-}
+declare module '@junie-monorepo/shared' {
+  export interface HealthCheckOptions {
+    maxRetries?: number
+    retryDelay?: number
+    timeout?: number
+  }
 
-declare module 'list/routes' {
-  import { RouteObject } from 'react-router-dom'
-  export const routes: RouteObject[]
-}
+  export const defaultHealthCheckOptions: Required<HealthCheckOptions> = {
+    maxRetries: 5,
+    retryDelay: 1000,
+    timeout: 5000,
+  }
 
-declare module 'detail/Detail' {
-  import { FC } from 'react'
-  const Detail: FC
-  export default Detail
-}
-
-declare module 'detail/routes' {
-  import { RouteObject } from 'react-router-dom'
-  export const routes: RouteObject[]
+  export async function checkRemoteHealth(
+    remoteUrl: string,
+    options: HealthCheckOptions = defaultHealthCheckOptions
+  ): Promise<boolean>
 }

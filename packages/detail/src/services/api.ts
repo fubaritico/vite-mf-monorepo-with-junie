@@ -1,11 +1,13 @@
-import { MovieDetailResponse } from '../types/movie'
-
 const API_KEY = import.meta.env.VITE_API_KEY as string
 const BASE_URL = 'https://api.themoviedb.org/3'
 
 export const fetchMovieDetail = async (
-  id: string
+  id?: string
 ): Promise<MovieDetailResponse> => {
+  if (id === undefined) {
+    throw new Error('Movie ID is required')
+  }
+
   try {
     const response = await fetch(
       `${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`
@@ -15,7 +17,6 @@ export const fetchMovieDetail = async (
       throw new Error(`Failed to fetch movie detail for ID: ${id}`)
     }
 
-    // TODO: use react-query
     // eslint-disable-next-line
     return await response.json()
   } catch (error) {

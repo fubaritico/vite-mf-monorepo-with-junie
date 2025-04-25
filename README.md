@@ -23,10 +23,10 @@ It's a work in progress, so many future enhancements are planned.
 - commitlint
 - Pnpm
 - React Router
-- React Query (to be implemented)
+- React Query
 - Native CSS (shared across remote/host)
 - React Testing Library (to be implemented)
-- Jest (to be implemented)
+- Vitest (to be implemented)
 
 ### Getting Started
 

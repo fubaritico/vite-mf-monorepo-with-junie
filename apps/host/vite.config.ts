@@ -50,6 +50,10 @@ const moduleFederationConfig2 = {
       singleton: true,
       requiredVersion: '^7.0.0',
     },
+    '@tanstack/react-query': {
+      singleton: true,
+      requiredVersion: '^5.74.4',
+    },
   },
 }
 

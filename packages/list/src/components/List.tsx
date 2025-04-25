@@ -1,44 +1,40 @@
-import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { QueryClient, useQuery } from '@tanstack/react-query'
+import { Link, useLoaderData } from 'react-router-dom'
 
 import { fetchPopularMovies, getImageUrl } from '../services/api'
-import { Movie } from '../types/movie'
+
 import './List.css'
 
-const List = () => {
-  const [movies, setMovies] = useState<Movie[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+import type { FC } from 'react'
 
-  useEffect(() => {
-    const getMovies = async () => {
-      try {
-        setLoading(true)
-        const data = await fetchPopularMovies()
-        setMovies(data.results)
-        setError(null)
-      } catch (err) {
-        setError('Failed to fetch movies. Please try again later.')
-        console.error(err)
-      } finally {
-        setLoading(false)
-      }
-    }
-    // eslint-disable-next-line
-    getMovies()
-  }, [])
+type ThisComponent = FC & {
+  loader: (queryClient: QueryClient) => () => Promise<MovieListResponse>
+}
 
-  if (loading) {
-    return <div className="loading">Loading movies...</div>
-  }
+const query = () => ({
+  queryKey: ['getMovies'],
+  queryFn: async () => fetchPopularMovies(),
+})
+
+const loader = (queryClient: QueryClient) => async () => {
+  return queryClient.ensureQueryData(query())
+}
+
+const List: ThisComponent = () => {
+  const initialData = useLoaderData<MovieListResponse>()
+
+  const { data: movies, error } = useQuery<MovieListResponse>({
+    ...query(),
+    initialData,
+  })
 
   if (error) {
-    return <div className="error">{error}</div>
+    return <div className="error">{error.message}</div>
   }
 
   return (
     <div className="movie-grid-list">
-      {movies.map((movie) => (
+      {movies.results.map((movie) => (
         <Link
           to={`/detail/${movie.id.toString()}`}
           key={movie.id}
@@ -58,3 +54,5 @@ const List = () => {
 }
 
 export default List
+
+List.loader = loader
