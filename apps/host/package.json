@@ -15,7 +15,7 @@
     "@junie-monorepo/shared": "workspace:*",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.0.0"
+    "react-router-dom": "^7.5.2"
   },
   "devDependencies": {
     "@module-federation/native-federation-typescript": "^0.6.0",
