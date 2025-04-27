@@ -61,7 +61,12 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [
       ...(mode !== 'production'
-        ? [NativeFederationTypeScriptHost({ moduleFederationConfig })]
+        ? [
+            NativeFederationTypeScriptHost({
+              moduleFederationConfig,
+              deleteTypesFolder: true,
+            }),
+          ]
         : []),
       federation(moduleFederationConfig2),
       react(),

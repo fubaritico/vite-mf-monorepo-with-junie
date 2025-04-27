@@ -1,0 +1,9 @@
+{
+  "name": "Validate",
+  "creator": "Me",
+  "description": "Validate is a static code analysis tool that helps developers identify and fix security vulnerabilities in their code. It supports multiple programming languages and provides detailed reports on potential issues.",
+  "iconName": "zscan",
+  "categories": [
+    "TypeScript"
+  ]
+}
