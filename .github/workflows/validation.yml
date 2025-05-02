@@ -29,26 +29,38 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.8.1
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
+
       - name: Start dev server
         run: pnpm dev & echo $! > dev.pid
+
       - name: Wait for dev server
         run: sleep 10
+
       - name: Run type-check
         run: pnpm type-check
+
       - name: Stop dev server
         run: kill $(cat dev.pid)
+
 #      - name: Check @mf-types
 #        run: cd apps/host && ls -al && cd ../..
+
       - name: Run lint
         run: pnpm lint
+
+      - name: Run tests
+        run: pnpm t

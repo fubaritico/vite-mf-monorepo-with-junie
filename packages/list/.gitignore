@@ -31,4 +31,5 @@ dist-ssr
 out
 gen
 
+# module federation hidden folder
 .__mf__temp

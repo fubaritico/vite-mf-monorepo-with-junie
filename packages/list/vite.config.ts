@@ -58,47 +58,53 @@ const proxyOptions: CommonServerOptions = {
   },
 }
 
-export default defineConfig(({ mode }) => ({
-  plugins: [
-    ...(mode !== 'production'
-      ? [
-          NativeFederationTypeScriptRemote({
-            tsConfigPath: './tsconfig.json',
-            moduleFederationConfig: remoteConfig,
-            deleteTypesFolder: true,
-            typesFolder: '@mf-types',
-            compilerInstance: 'tsc',
-          }),
-        ]
-      : []),
-    federation({
-      ...remoteConfig,
-    }),
-    react(),
-    // Allow CSS to be injected in host app
-    cssInjectedByJsPlugin({
-      relativeCSSInjection: true,
-    }),
-    topLevelAwait(),
-  ],
-  build: {
-    modulePreload: false,
-    target: 'esnext',
-    minify: false,
-    cssCodeSplit: false,
-    emptyOutDir: true,
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
+export default defineConfig(({ mode }) => {
+  return {
+    plugins: [
+      ...(mode === 'development'
+        ? [
+            NativeFederationTypeScriptRemote({
+              tsConfigPath: './tsconfig.json',
+              moduleFederationConfig: remoteConfig,
+              deleteTypesFolder: true,
+              typesFolder: '@mf-types',
+              compilerInstance: 'tsc',
+            }),
+          ]
+        : []),
+      federation({
+        ...remoteConfig,
+      }),
+      react(),
+      // Allow CSS to be injected in host app
+      cssInjectedByJsPlugin({
+        relativeCSSInjection: true,
+      }),
+      topLevelAwait(),
+    ],
+    build: {
+      modulePreload: false,
+      target: 'esnext',
+      minify: false,
+      cssCodeSplit: false,
+      emptyOutDir: true,
+      rollupOptions: {
+        output: {
+          manualChunks: undefined,
+        },
       },
     },
-  },
-  server: {
-    port: parseInt(process.env.REMOTE_LIST_PORT),
-    strictPort: true,
-    ...proxyOptions,
-    fs: {
-      allow: ['./dist/mf-manifest.json', 'dist', 'src'],
-    },
-  },
-}))
+    ...(mode === 'development'
+      ? {
+          server: {
+            port: parseInt(process.env.REMOTE_LIST_PORT),
+            strictPort: true,
+            ...proxyOptions,
+            fs: {
+              allow: ['./dist/mf-manifest.json', 'dist', 'src'],
+            },
+          },
+        }
+      : {}),
+  }
+})

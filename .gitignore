@@ -13,3 +13,12 @@ node_modules/
 
 # Temp commit message
 commit_message.txt
+
+# test reports
+test-output.json
+
+# module federation hidden folder
+.__mf__temp
+
+# Vitest coverage
+coverage

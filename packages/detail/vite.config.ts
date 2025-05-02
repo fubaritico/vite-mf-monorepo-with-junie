@@ -11,8 +11,6 @@ import type { CommonServerOptions } from 'vite'
 
 dotenv.config()
 
-console.log(process.env.REMOTE_DETAIL_PORT)
-
 const remoteConfig: ModuleFederationOptions = {
   name: 'detail',
   filename: 'remoteEntry.js',
@@ -62,7 +60,7 @@ const proxyOptions: CommonServerOptions = {
 
 export default defineConfig(({ mode }) => ({
   plugins: [
-    ...(mode !== 'production'
+    ...(mode === 'development'
       ? [
           NativeFederationTypeScriptRemote({
             tsConfigPath: './tsconfig.json',
@@ -95,12 +93,16 @@ export default defineConfig(({ mode }) => ({
       },
     },
   },
-  server: {
-    port: parseInt(process.env.REMOTE_DETAIL_PORT),
-    strictPort: true,
-    ...proxyOptions,
-    fs: {
-      allow: ['./dist/mf-manifest.json', 'dist', 'src'],
-    },
-  },
+  ...(mode === 'development'
+    ? {
+        server: {
+          port: parseInt(process.env.REMOTE_DETAIL_PORT),
+          strictPort: true,
+          ...proxyOptions,
+          fs: {
+            allow: ['./dist/mf-manifest.json', 'dist', 'src'],
+          },
+        },
+      }
+    : {}),
 }))

@@ -7,20 +7,27 @@ import './List.css'
 
 import type { FC } from 'react'
 
-type ThisComponent = FC & {
+export type RouteComponent = FC & {
   loader: (queryClient: QueryClient) => () => Promise<MovieListResponse>
 }
 
 const query = () => ({
   queryKey: ['getMovies'],
-  queryFn: async () => fetchPopularMovies(),
+  queryFn: async () => {
+    try {
+      return await fetchPopularMovies()
+    } catch (error) {
+      console.error('Error fetching popular movies:', error)
+      throw error
+    }
+  },
 })
 
 const loader = (queryClient: QueryClient) => async () => {
   return queryClient.ensureQueryData(query())
 }
 
-const List: ThisComponent = () => {
+const List: RouteComponent = () => {
   const initialData = useLoaderData<MovieListResponse>()
 
   const { data: movies, error } = useQuery<MovieListResponse>({
@@ -33,12 +40,13 @@ const List: ThisComponent = () => {
   }
 
   return (
-    <div className="movie-grid-list">
+    <div data-testid="movie-grid-list" className="movie-grid-list">
       {movies.results.map((movie) => (
         <Link
           to={`/detail/${movie.id.toString()}`}
           key={movie.id}
           className="movie-grid-card"
+          data-testid="movie-grid-card"
         >
           <div className="movie-grid-poster">
             <img

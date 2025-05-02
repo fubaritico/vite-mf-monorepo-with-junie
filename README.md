@@ -25,8 +25,8 @@ It's a work in progress, so many future enhancements are planned.
 - React Router
 - React Query
 - Native CSS (shared across remote/host)
-- React Testing Library (to be implemented)
-- Vitest (to be implemented)
+- React Testing Library
+- Vitest
 
 ### Getting Started
 
@@ -56,6 +56,7 @@ The project consists of two remotes and one host application:
 - `packages/list`: The list of movies, displayed at '/' route
 - `packages/detail`: The detail page of a movie, displayed at '/movie/:id' route
 - `packages/people`: The detail of a talent taking part in a movie, displayed at '/people/:id' route (to be implemented)
+- `packages/shared`: Shared utils used by the remotes and in the tests (to be implemented)
 
 ### Project features
 
@@ -70,6 +71,37 @@ The project consists of two remotes and one host application:
 - Each remote is standalone and can be deployed independently
 - For production mode (locally), each part of the application is hosted in a expressJS server
 
+### Testing
+
+This project uses Vitest and React Testing Library for testing. The tests are located in the `components` folder of each package. To run the tests, use the following command at the root of the project:
+
+```bash
+pnpm t
+```   
+
+Some extra tests will be added in the future, but for now, the focus is on the main features of the project.
+
+#### Coverage
+
+To run the tests with coverage, use the following command at the root of the project:
+
+```bash
+pnpm coverage
+```
+
+This will generate a coverage report in the `coverage` folder of each package. The coverage report will be generated in HTML format, and you can open it in your browser to see the coverage details.
+
+With Intellij, you can open the coverage report by right-clicking on the `coverage` folder and selecting "Open in Browser". This will open the coverage report in your default browser.
+
 ### Issues
 
-For now, the project has to be refreshed in dev mode to load the remotes. Production and stand alone is working fine.
+For now, the project has to be refreshed in dev mode to load the remotes. Production and stand-alone modes work fine.
+
+### Future Enhancements
+
+- Add test utils in the shared package
+- Add tests for error cases
+- Add more tests for the components (details)
+- Add e2e tests with vitest in browser mode
+- Use tailwindcss for styling
+- Add a detail page for the talent (people) taking part in a movie
